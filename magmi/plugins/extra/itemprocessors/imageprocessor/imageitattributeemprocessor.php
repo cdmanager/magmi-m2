@@ -590,7 +590,7 @@ class ImageAttributeItemProcessor extends Magmi_ItemProcessor
         $pid = $params["product_id"];
         foreach ($this->_img_baseattrs as $attrcode) {
             // if only image/small_image/thumbnail label is present (ie: no image field)
-            if (isset($item[$attrcode . "_label"]) && !isset($item[$attrcode])) {
+            if (isset($item[$attrcode . "_label"]) /*<robert>&& !isset($item[$attrcode])</robert>*/) {
                 // force label update
                 $attrdesc = $this->getAttrInfo($attrcode);
                 $this->updateLabel(
