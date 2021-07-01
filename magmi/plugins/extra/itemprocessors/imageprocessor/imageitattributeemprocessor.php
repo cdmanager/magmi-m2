@@ -240,9 +240,13 @@ class ImageAttributeItemProcessor extends Magmi_ItemProcessor
      *            : image file name (relative to /products/media in magento dir)
      * @return bool : if image is already present in gallery for a given product id
      */
-    public function getImageId($pid, $attid, $imgname, $refid = null, $store_id = 0)
+    public function getImageId($pid, $attid, $imgname, $refid = null, $store_id = 0, $imglabel = "")
     {
         $t = $this->tablename('catalog_product_entity_media_gallery_value');
+        $media_type = "image";
+        if(preg_match("/youtu?.be/", $imglabel)){
+            $media_type = "external-video";
+        }
 
         $sql = "SELECT $t.value_id FROM $t ";
         $vc = $this->tablename('catalog_product_entity_media_gallery');
@@ -258,10 +262,19 @@ class ImageAttributeItemProcessor extends Magmi_ItemProcessor
         if ($imgid == null) {
             // insert image in media_gallery
             $sql = "INSERT INTO $vc
-				(attribute_id,value)
+				(attribute_id,value,media_type)
 				VALUES
-				(?,?)";
-            $imgid = $this->insert($sql, array($attid, $imgname));
+				(?,?,?)";
+            $imgid = $this->insert($sql, array($attid, $imgname, $media_type));
+
+            if($media_type == "external-video"){
+                $tvid = $this->tablename('catalog_product_entity_media_gallery_value_video');
+                $sql = "INSERT INTO $tvid
+                    (value_id,url)
+                    VALUES
+                    (?,?)";
+                $this->insert($sql, array($imgid, $imglabel));
+            }
         } else {
             $sql = "UPDATE $vc
 				 SET value=?
@@ -310,7 +323,7 @@ class ImageAttributeItemProcessor extends Magmi_ItemProcessor
         $gal_attinfo = $this->getAttrInfo("media_gallery");
         $tg = $this->tablename('catalog_product_entity_media_gallery');
         $tgv = $this->tablename('catalog_product_entity_media_gallery_value');
-        $vid = $this->getImageId($pid, $gal_attinfo["attribute_id"], $imgname, $refid, $storeid);
+        $vid = $this->getImageId($pid, $gal_attinfo["attribute_id"], $imgname, $refid, $storeid, $imglabel);
         if ($vid != null) {
 
             // et maximum current position in the product gallery
