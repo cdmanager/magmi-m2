@@ -309,13 +309,9 @@ foreach ($order as $k) {
 	</div>
 
 	<ul>
-		<li><input type="radio" name="paramcr" value="saveprof">Save chosen Profile (<?php echo $profilename ?>) with current parameters
-	</li>
-		<li><input type="radio" name="paramcr" value="applyp"
-			checked="checked">Apply current parameters as profile override
-			without saving</li>
-		<li><input type="radio" name="paramcr" value="useold">Discard changes &amp; apply last saved <?php echo $profilename ?> profile values
-	</li>
+		<li><input type="radio" name="paramcr" value="saveprof" checked="checked">Save chosen Profile (<?php echo $profilename ?>) with current parameters</li>
+		<li><input type="radio" name="paramcr" value="applyp">Apply current parameters as profile override without saving</li>
+		<li><input type="radio" name="paramcr" value="useold">Discard changes &amp; apply last saved <?php echo $profilename ?> profile values</li>
 	</ul>
 	<div class="actionbuttons">
 		<a class="actionbutton"
