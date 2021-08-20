@@ -10,7 +10,7 @@ class WeeetaxItemProcessor extends Magmi_ItemProcessor
 {
     public function getPluginInfo()
     {
-        return array("name"=>"Weee Tax importer","author"=>"Garbocom & Dweeves","version"=>"0.0.5");
+        return array("name" => "Weee Tax importer","author" => "Garbocom & Dweeves","version" => "0.0.5");
     }
 
     /**
@@ -18,7 +18,7 @@ class WeeetaxItemProcessor extends Magmi_ItemProcessor
      *
      * @param MagentoMassImporter $this
      *            : reference to mass importer (convenient to perform database operations)
-     * @param unknown_type $item
+     * @param array $item
      *            : modifiable reference to item before import
      *            the $item is a key/value array with column names as keys and values as read from csv file.
      * @return bool :

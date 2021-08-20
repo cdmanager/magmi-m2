@@ -13,16 +13,14 @@ class DefaultValuesItemProcessor extends Magmi_ItemProcessor
 
     public function getPluginInfo()
     {
-        return array("name"=>"Default Values setter","author"=>"Dweeves","version"=>"0.0.5",
-            "url"=>$this->pluginDocUrl("Default_Values_setter"));
+        return array("name" => "Default Values setter","author" => "Dweeves","version" => "0.0.5",
+            "url" => $this->pluginDocUrl("Default_Values_setter"));
     }
 
     /**
      * you can add/remove columns for the item passed since it is passed by reference
      *
-     * @param Magmi_Engine $mmi
-     *            : reference to magmi engine instance (convenient to perform database operations)
-     * @param unknown_type $item
+     * @param array $item
      *            : modifiable reference to item before import
      *            the $item is a key/value array with column names as keys and values as read from csv file.
      * @return bool :

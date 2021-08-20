@@ -4,31 +4,36 @@ class Magmi_ValueParser
 {
     public static function getParseInfo($pvalue, $dictarray)
     {
-        $parseinfo=array();
+        $parseinfo = array();
 
-        foreach ($dictarray as $key=>$v) {
+        foreach ($dictarray as $key => $v) {
             if (preg_match("|\{\{\s*(.*?)\s*\}\}|s", $pvalue, $matches)) {
                 if (!isset($parseinfo["complex"])) {
-                    $parseinfo["complex"]=array();
+                    $parseinfo["complex"] = array();
                 }
-                for ($i=1;$i<count($matches);$i++) {
-                    $parseinfo["complex"][]=$matches[$i];
+                for ($i = 1;$i < count($matches);$i++) {
+                    $parseinfo["complex"][] = $matches[$i];
                 }
             }
 
             if (preg_match("|\{$key\.(.*?)\}|", $pvalue, $matches)) {
                 if (!isset($parseinfo["simple"])) {
-                    $parseinfo["simple"] = array("$key"=>array());
+                    $parseinfo["simple"] = array("$key" => array());
                 }
 
-                for ($i=1;$i<count($matches);$i++) {
-                    $parseinfo["simple"][$key]=$matches[$i];
+                for ($i = 1;$i < count($matches);$i++) {
+                    $parseinfo["simple"][$key] = $matches[$i];
                 }
             }
         }
         return $parseinfo;
     }
-    
+
+    /**
+     * @param string $pvalue
+     * @param array $dictarray
+     * @return string
+     */
     public static function parseValue($pvalue, $dictarray)
     {
         $matches = array();
@@ -42,7 +47,7 @@ class Magmi_ValueParser
             }
 
             $ik = array_keys($vals);
-            
+
             // replace base values
             while (preg_match("|\{$key\.(.*?)\}|", $pvalue, $matches)) {
                 foreach ($matches as $match) {

@@ -72,7 +72,7 @@ class MultiDimArray extends ArrayIterator
     }
 
     /**
-     * (non-PHPdoc)
+     *
      * @see ArrayIterator::offsetSet()
      */
     public function offsetSet($name, $value)
@@ -84,7 +84,7 @@ class MultiDimArray extends ArrayIterator
             if (sizeof($name) == 0) {
                 parent::offsetSet($key, $value);
             } else {
-                $childArray = parent::offsetExists($key)?parent::offsetGet($key):new MultiDimArray();
+                $childArray = parent::offsetExists($key) ? parent::offsetGet($key) : new MultiDimArray();
                 if (!is_a($childArray, 'MultiDimArray')) {
                     $childArray = new MultiDimArray();
                 }
@@ -116,11 +116,11 @@ class MultiDimArray extends ArrayIterator
      * <code>
      * offsetExistsPartly(array(1,2,3,4),true) will additionally return true if one of the following offsets exists: array(1), array(1,2), array(1,2,3)<br/></code>
      *
-     * @param unknown $name
+     * @param array|string $name
      * @param string $partlyOk
      * @return void|boolean|string
      */
-    public function offsetExistsPartly($name, $partlyOk=true)
+    public function offsetExistsPartly($name, $partlyOk = true)
     {
         if (!is_array($name)) {
             return parent::offsetExists($name);
@@ -143,6 +143,9 @@ class MultiDimArray extends ArrayIterator
         }
     }
 
+    /**
+     * @param string $name
+     */
     public function offsetUnset($name)
     {
         if (!is_array($name)) {
@@ -156,7 +159,7 @@ class MultiDimArray extends ArrayIterator
                     $object = parent::offsetGet($key);
                     if (is_a($object, 'MutliDimArray')) {
                         $object->offsetUnset($name);
-                        if ($object->sizeof()==0) {
+                        if ($object->sizeof() == 0) {
                             parent::offsetUnset($key);
                         }
                     } else {

@@ -12,16 +12,14 @@ class GenericMapperProcessor extends Magmi_ItemProcessor
 
     public function getPluginInfo()
     {
-        return array("name"=>"Generic mapper","author"=>"Dweeves","version"=>"0.0.6a",
-            "url"=>$this->pluginDocUrl("Generic_mapper"));
+        return array("name" => "Generic mapper","author" => "Dweeves","version" => "0.0.6a",
+            "url" => $this->pluginDocUrl("Generic_mapper"));
     }
 
     /**
      * you can add/remove columns for the item passed since it is passed by reference
      *
-     * @param Magmi_Engine $mmi
-     *            : reference to magmi engine instance (convenient to perform database operations)
-     * @param unknown_type $item
+     * @param array $item
      *            : modifiable reference to item before import
      *            the $item is a key/value array with column names as keys and values as read from csv file.
      * @return bool :
@@ -77,7 +75,7 @@ class GenericMapperProcessor extends Magmi_ItemProcessor
         foreach ($flist as $fname) {
             $idx = basename($fname);
             if (!isset($this->_mapping[$idx])) {
-                $this->_mapping[$idx] = array("DIRECT"=>array(),"RE"=>array());
+                $this->_mapping[$idx] = array("DIRECT" => array(),"RE" => array());
             }
             $mf = fopen("$fname", "r");
             while (($data = fgetcsv($mf, 1000, ",")) !== false) {

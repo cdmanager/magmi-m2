@@ -50,13 +50,13 @@ class timecounter
     /**
      * Initializes default timing categories to use
      *
-     * @param unknown $tcats
+     * @param array $tcats
      *            array of timing categories
      */
     public function initTimingCats($tcats)
     {
         foreach ($tcats as $tcat) {
-            $this->_timingcats[$tcat] = array("_counters"=>array(),"_timers"=>array());
+            $this->_timingcats[$tcat] = array("_counters" => array(),"_timers" => array());
         }
     }
 
@@ -75,7 +75,7 @@ class timecounter
     /**
      * return all timers
      *
-     * @return all timers info by category
+     * @return array all timers info by category
      */
     public function getTimers()
     {
@@ -89,7 +89,7 @@ class timecounter
     /**
      * return all counters
      *
-     * @return all counters info by category
+     * @return array all counters info by category
      */
     public function getCounters()
     {
@@ -116,7 +116,7 @@ class timecounter
 
         foreach ($tcats as $tcat) {
             if (!isset($this->_timingcats[$tcat])) {
-                $this->_timingcats[$tcat] = array("_counters"=>array(),"_timers"=>array());
+                $this->_timingcats[$tcat] = array("_counters" => array(),"_timers" => array());
             }
             $this->_timingcats[$tcat]["_counters"][$cname] = 0;
         }
@@ -184,7 +184,7 @@ class timecounter
         if (!isset($tcat)) {
             $tcats = $this->_timingcats;
         } else {
-            $tcats = array($tcat=>$this->_timingcats[$tcat]);
+            $tcats = array($tcat => $this->_timingcats[$tcat]);
         }
         $t = microtime(true);
 
@@ -196,7 +196,7 @@ class timecounter
             for ($i = 0; $i < $ctxc; $i++) {
                 $src = $this->_timingcontext[$i];
                 if (!isset($this->_timingcats[$tcat]["_timers"][$phase][$src])) {
-                    $this->_timingcats[$tcat]["_timers"][$phase][$src] = array("init"=>$t,"dur"=>0);
+                    $this->_timingcats[$tcat]["_timers"][$phase][$src] = array("init" => $t,"dur" => 0);
                 }
                 $this->_timingcats[$tcat]["_timers"][$phase][$src]["start"] = $t;
             }
@@ -231,7 +231,7 @@ class timecounter
         if ($tcat == null) {
             $tcats = $this->_timingcats;
         } else {
-            $tcats = array($tcat=>$this->_timingcats[$tcat]);
+            $tcats = array($tcat => $this->_timingcats[$tcat]);
         }
         $end = microtime(true);
         foreach ($tcats as $tcat => $phasetimes) {

@@ -37,7 +37,7 @@ class Name2IdDecoder
             if (isset($mappingInfo['additionalIdColumn'])) {
                 array_push($nameColumns, $mappingInfo['additionalIdColumn']);
             }
-            $this->_mappingTables[$columnName] = $importer->fetchName2Ids($mappingInfo['tableName'], $mappingInfo['idColumnName'], $nameColumns, isset($mappingInfo['conditions'])?$mappingInfo['conditions']:null);
+            $this->_mappingTables[$columnName] = $importer->fetchName2Ids($mappingInfo['tableName'], $mappingInfo['idColumnName'], $nameColumns, isset($mappingInfo['conditions']) ? $mappingInfo['conditions'] : null);
             $this->_mappedColumnNames[$columnName] = $mappingInfo['idColumnName'];
             if (isset($mappingInfo['additionalIdColumn'])) {
                 $this->_additionalIdColumns[$columnName] = $mappingInfo['additionalIdColumn'];
@@ -48,7 +48,7 @@ class Name2IdDecoder
     /**
      * <p>Perform decoding of values in given array.<p>
      * <p>Returns the mapped record, which means that mapped keys are removed and resulting keys will be added to result. Unmapped keys stay the same and retain their value.</p>
-     * @param unknown $record
+     * @param array $record
      */
     public function decode($record)
     {
@@ -56,7 +56,7 @@ class Name2IdDecoder
         $indexed = false;
         if (!(bool)count(array_filter(array_keys($record), 'is_string'))) {
             // indexed! -> make associative!
-            $indexed=true;
+            $indexed = true;
             // keys are column names
             $keys = array_keys($this->_mappedColumnNames);
             // values is record
