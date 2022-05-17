@@ -1084,6 +1084,7 @@ class Magmi_ProductImportEngine extends Magmi_Engine
             $this->rollbackTransaction();
             $res["ok"] = false;
             $this->logException($e, "ERROR ON RECORD #$this->_current_row");
+            $this->log($e->getTraceAsString(), "error");
             if ($e->getMessage() == "MAGMI_RUN_CANCELED") {
                 $canceled = true;
             }
