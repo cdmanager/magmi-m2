@@ -243,9 +243,17 @@ class RobertCustomOptionsItemProcessor extends Magmi_ItemProcessor
         }
 
         $rawData = $item[$this->_dataColumn];
-        // if value is __MAGMI*__ or __NULL__ then do nothing
-        if(strpos($rawData, '__') === 0){
-            return true;
+        // if value is __MAGMI_DELETE__ then delete custom options
+        if($rawData === '__MAGMI_DELETE__'){
+            $pid = $params['product_id'];
+            $t1 = $this->tablename('catalog_product_option');
+            $sql = "DELETE $t1 FROM $t1 WHERE $t1.product_id=$pid";
+            $this->delete($sql);
+        }else{
+            // if value is __MAGMI*__ or __NULL__ then do nothing
+            if(strpos($rawData, '__') === 0){
+                return true;
+            }
         }
 
         $hasOptions = 0;
