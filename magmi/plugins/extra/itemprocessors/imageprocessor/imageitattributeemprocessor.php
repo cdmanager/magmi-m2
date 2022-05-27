@@ -425,6 +425,7 @@ class ImageAttributeItemProcessor extends Magmi_ItemProcessor
     {
         $cname = basename($fname);
         if (isset($this->forcename) && $this->forcename != "") {
+            $extra["uniqid"] = uniqid("", false);
             $extra = $this->getImagenameComponents($fname, $this->forcename, $extra);
             $pname = (isset($extra['parsed']) ? $extra['imagename'] : $this->forcename);
             $cname = $this->parsename($pname, $item, $extra);
