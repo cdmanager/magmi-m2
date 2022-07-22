@@ -161,7 +161,7 @@ class RobertCustomOptionsItemProcessor extends Magmi_ItemProcessor
 
     public function BuildCustomOption($field, $value)
     {
-        $fieldParts = explode(":", $field);
+        $fieldParts = explode("¥", $field);  // : => ¥
         $title = $fieldParts[0];
         $type = $fieldParts[1];
         $is_required = $fieldParts[2];
@@ -171,11 +171,11 @@ class RobertCustomOptionsItemProcessor extends Magmi_ItemProcessor
         $opt = array('__field'=>$field,'is_delete'=>0,'title'=>$title,'previous_group'=>'','previous_type'=>'',
             'type'=>$type,'is_require'=>$is_required,'sort_order'=>$sort_order,'values'=>array());
 
-        $values = explode('|', $value);
+        $values = explode('¦', $value);  // | => ¦
 
         foreach ($values as $v) {
             $ovalues = array();
-            $parts = explode(':', $v);
+            $parts = explode('¥', $v);  // : => ¥
             $mv = $this->isMultiValue($type);
             if ($mv) {
                 if (preg_match("|\[(.*)\]|", $parts[0], $matches)) {
@@ -260,15 +260,15 @@ class RobertCustomOptionsItemProcessor extends Magmi_ItemProcessor
         $requiredOptions = 0;
         $custom_options = array();
 
-        $rawDataParts = explode(';', $rawData);
+        $rawDataParts = explode('§', $rawData);  // ; => §
         foreach($rawDataParts as $rawDataPart){
-            $optionData = explode('@', $rawDataPart);
+            $optionData = explode('¤', $rawDataPart);  // @ => ¤
             if(count($optionData) !== 2){
                 continue;
             }
             $field = $optionData[0];
             $value = $optionData[1];
-            $fieldParts = explode(':', $field);
+            $fieldParts = explode('¥', $field); // : => ¥
             if (count($fieldParts) > 2) {
                 if (strlen($value) > 0) {
                     $custom_options[] = $this->BuildCustomOption($field, $value);
