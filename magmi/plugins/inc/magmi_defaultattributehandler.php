@@ -306,6 +306,9 @@ class Magmi_DefaultAttributeItemProcessor extends Magmi_ItemProcessor
                 case 'Magento\Tax\Model\TaxClass\Source\Product':
                     $ovalue = $this->getTaxClassId($ivalue);
                     break;
+                case 'Robert\PrimaryCategory\Model\Product\Attribute\Source\ZPrimaryCategoryId':
+                    ; // do nothing, leave value as is
+                    break;
                 // otherwise, standard option behavior
                 // get option id for value, create it if does not already exist
                 // do not insert if empty
