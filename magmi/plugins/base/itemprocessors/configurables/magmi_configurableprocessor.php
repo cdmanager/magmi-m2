@@ -24,6 +24,9 @@ class Magmi_ConfigurableItemProcessor extends Magmi_ItemProcessor
      */
     public function getConfigurableOptsFromAsId($asid)
     {
+        // <robert> is_configurable is deprecated in Magento 2
+        return [];
+        // </robert>
         if (!isset($this->_configurable_attrs[$asid])) {
             $ea = $this->tablename("eav_attribute");
             $eea = $this->tablename("eav_entity_attribute");
