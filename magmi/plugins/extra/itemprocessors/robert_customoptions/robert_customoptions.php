@@ -46,9 +46,9 @@ class RobertCustomOptionsItemProcessor extends Magmi_ItemProcessor
         $t1 = $this->tablename('catalog_product_option');
         $t2 = $this->tablename('catalog_product_option_title');
         $t3 = $this->tablename('catalog_product_option_price');
-        $values = array($pid,$opt['type'],$opt['is_require'],$opt['sort_order'],$opt['sku']);
-        $f = "product_id, type, is_require,sort_order,sku";
-        $i = "?,?,?,?,?";
+        $values = array($pid,$opt['type'],$opt['is_require'],1-$opt['is_require'],$opt['sort_order'],$opt['sku']);
+        $f = "product_id, type, is_require, is_hidden,sort_order,sku";
+        $i = "?,?,?,?,?,?";
 
         foreach (array("max_characters", "file_extension", "image_size_x", "image_size_y") as $extra) {
             if (isset($opt[$extra])) {
